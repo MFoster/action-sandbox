@@ -26,14 +26,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
-
-      - name:
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Files in current directory:"
-          ls -la
-          echo "Files in build directory:"
-          ls -la build
       - name: Create release
         id: create_release
         uses: softprops/action-gh-release@v1
