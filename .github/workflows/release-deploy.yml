@@ -1,0 +1,15 @@
+name: Release and Deploy
+on:
+  release:
+    types: [created, edited]
+
+
+jobs:
+  deploy:
+    name: Deploy to production
+    if: ${{ github.event.release.prerelease == false && github.event.release.draft == false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure release is valid
+        run: |
+          echo "Release name = ${{ github.event.release.name }}"
