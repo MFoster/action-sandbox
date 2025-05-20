@@ -6,6 +6,10 @@ on:
         description: 'Name of the artifact to upload'
         required: true
         type: string
+      artifact_path:
+        description: 'Path to the artifact to upload'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -24,22 +28,10 @@ jobs:
       - name: Build
         run: npm run build
         id: build
-      - name: Debug path
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Files in current directory:"
-          ls -la
-          echo "Files in .next directory:"
-          ls -la .next
-      - name: Rename build directory
-        run: |
-          if [ -d ".next" ]; then
-            mv .next build
-          else
-            echo "Directory .next does not exist."
-          fi
+      - name: Tar build directory
+        run: tar -czf ${{ inputs.artifact_path }} .next
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
-          path: build
+          path: ${{ inputs.artifact_path }}
