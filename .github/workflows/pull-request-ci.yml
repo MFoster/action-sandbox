@@ -1,0 +1,12 @@
+name: Pull request to main
+on:
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/shared-npm-build.yml
+    with:
+      artifact_name: build-artifact

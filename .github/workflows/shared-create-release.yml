@@ -1,0 +1,41 @@
+name: Create Github Release
+
+on: 
+  workflow_call:
+    inputs:
+      artifact_name:
+        description: 'Name of the artifact to upload'
+        required: true
+        type: string
+      release_name:
+        description: 'Name of the release'
+        required: true
+        type: string
+      release_files:
+        description: 'Files to include in the release'
+        required: true
+        type: string
+
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact_name }}
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ github.run_number }}"
+          prerelease: true
+          draft: false
+          name: ${{ inputs.release_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            ${{ github.event.head_commit.message }}
+          files: |
+            ${{ inputs.release_files }}

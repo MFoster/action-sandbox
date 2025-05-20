@@ -1,0 +1,21 @@
+name: Merged into main
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/shared-npm-build.yml
+    with:
+      artifact_name: build-artifact
+  release:
+    needs: build
+    uses: ./.github/workflows/shared-create-release.yml
+    secrets: inherit
+    with:
+      artifact_name: build-artifact
+      release_name: "Release v${{ github.run_number }}"
+      release_files: |
+        ./next/**/*
