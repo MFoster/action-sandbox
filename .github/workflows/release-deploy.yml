@@ -7,9 +7,20 @@ on:
 jobs:
   deploy:
     name: Deploy to production
-    if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.release.target_commitish}}
+    if: ${{ github.event.release.prerelease == false && github.event.release.draft == false }}
     runs-on: ubuntu-latest
     steps:
       - name: Ensure release is valid
         run: |
           echo "Release name = ${{ github.event.release.name }}"
+      - name: Make release the latest
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: release } = await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              make_latest: true
+            });
+            console.log(`Release ${release.tag_name} is now the latest release.`);
