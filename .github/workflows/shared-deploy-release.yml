@@ -1,0 +1,38 @@
+name: Deploy from release
+
+on: workflow_call
+
+jobs:
+  inspect:
+    name: Output release information
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output release information
+        run: |
+          echo "Release name = ${{ github.event.release.name }}"
+          echo "Release tag = ${{ github.event.release.tag_name }}"
+          echo "Release body = ${{ github.event.release.body }}"
+          echo "Release draft = ${{ github.event.release.draft }}"
+          echo "Release prerelease = ${{ github.event.release.prerelease }}"
+          echo "Release created at = ${{ github.event.release.created_at }}"
+          echo "Release published at = ${{ github.event.release.published_at }}"
+          echo "Release URL = ${{ github.event.release.html_url }}"
+  deploy:
+    name: Deploy to production
+    if: ${{ github.event.release.prerelease == false && github.event.release.draft == false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure release is valid
+        run: |
+          echo "Release name = ${{ github.event.release.name }}"
+      - name: Make release the latest
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: release } = await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              make_latest: true
+            });
+            console.log(`Release ${release.tag_name} is now the latest release.`);
