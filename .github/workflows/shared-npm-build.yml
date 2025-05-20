@@ -24,8 +24,15 @@ jobs:
       - name: Build
         run: npm run build
         id: build
+      - name: Debug path
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in current directory:"
+          ls -la
+          echo "Files in .next directory:"
+          ls -la .next
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
-          path: ./.next/**/*
+          path: .next/**/*
