@@ -31,8 +31,15 @@ jobs:
           ls -la
           echo "Files in .next directory:"
           ls -la .next
+      - name: Rename build directory
+        run: |
+          if [ -d ".next" ]; then
+            mv .next build
+          else
+            echo "Directory .next does not exist."
+          fi
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
-          path: .next
+          path: build
