@@ -26,16 +26,24 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
-      - name: Create release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: "v${{ github.run_number }}"
-          prerelease: true
-          draft: false
-          name: ${{ inputs.release_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            ${{ github.event.head_commit.message }}
-          files: |
-            ${{ inputs.release_files }}
+
+      - name:
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in current directory:"
+          ls -la
+          echo "Files in build directory:"
+          ls -la build
+      # - name: Create release
+      #   id: create_release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: "v${{ github.run_number }}"
+      #     prerelease: true
+      #     draft: false
+      #     name: ${{ inputs.release_name }}
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     body: |
+      #       ${{ github.event.head_commit.message }}
+      #     files: |
+      #       ${{ inputs.release_files }}
