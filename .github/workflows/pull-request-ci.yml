@@ -9,3 +9,10 @@ jobs:
     with:
       artifact_name: build-artifact
       artifact_path: build.tar.gz
+  comment:
+    uses: ./.github/workflows/shared-upsert-comment.yml
+    with:
+      comment-body: |
+        The build artifact is available for download.
+      comment-title: Build Artifact
+      pr-number: ${{ github.event.pull_request.number }}
