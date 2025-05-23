@@ -7,7 +7,15 @@ on:
 jobs:
   output-event-name:
     uses: ./.github/workflows/shared-upsert-comment.yml
-   
+    with:
+      comment-body: |
+        ## Event Name
+        The event name is `${{ github.event_name }}`.
+
+        ## Event Payload
+        The event payload is `${{ toJson(github.event) }}`.
+      comment-title: Event Name Test Please Ignore
+      pr-number: ${{ github.event.pull_request.number }}
   # create-comment-one:
   #   name: Create comment
   #   uses: ./.github/workflows/shared-upsert-comment.yml
