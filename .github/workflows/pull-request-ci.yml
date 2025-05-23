@@ -8,3 +8,4 @@ jobs:
     uses: ./.github/workflows/shared-upload-build.yml
     with:
       artifact_name: build-artifact
+      artifact_path: build.tar.gz
