@@ -12,12 +12,17 @@ on:
         description: 'Unique identifier for the comment (acts as an id)'
         required: true
         type: string
+      event-name:
+        description: 'Event name to trigger the workflow'
+        required: true
+        type: string
+        default: 'pull_request'
 
 jobs:
 
   upsert-comment:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request != null || github.event_name == 'workflow_dispatch' }}
+    if: ${{ inputs. }}
     steps:
       - name: Find PR number
         id: find_pr
