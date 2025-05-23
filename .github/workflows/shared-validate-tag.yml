@@ -1,0 +1,60 @@
+name: Ensure Git Tag exists
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Release tag to inspect'
+        required: true
+        type: string
+    outputs:
+      tag_exists:
+        description: 'Whether the tag exists'
+        required: true
+        type: boolean
+        value: ${{ jobs.validate_tag.outputs.tag_exists }}
+      tag_name:
+        description: 'The name of the tag'
+        required: true
+        type: string
+        value: ${{ jobs.validate_tag.outputs.tag_name }}
+      tag_url:
+        description: 'The URL of the tag'
+        required: true
+        type: string
+        value: ${{ jobs.validate_tag.outputs.tag_url }}
+      tag_ref:
+        description: 'The ref of the tag'
+        required: true
+        type: string
+        value: ${{ jobs.validate_tag.outputs.tag_ref }}
+
+jobs:
+  validate_tag:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_exists: ${{ steps.validate_tag.outputs.tag_exists }}
+      tag_name: ${{ steps.validate_tag.outputs.tag_name }}
+      tag_url: ${{ steps.validate_tag.outputs.tag_url }}
+      tag_ref: ${{ steps.validate_tag.outputs.tag_ref }}
+    steps:
+      - name: Validate tag exists
+        id: validate_tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const tag = '${{ github.event.inputs.tag }}';
+            try {
+              await github.rest.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`,
+              });
+              core.setOutput('tag_exists', 'true');
+              core.setOutput('tag_name', tag);
+              core.setOutput('tag_url', tag.url);
+              core.setOutput('tag_ref', tag.ref);
+              
+              console.log(`Tag ${tag} exists.`);
+            } catch (error) {
+              core.setFailed(`Tag ${tag} does not exist.`);
+            }
