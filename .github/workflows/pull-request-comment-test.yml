@@ -6,22 +6,7 @@ on:
 
 jobs:
   output-event-name:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output event name
-        run: |
-          echo "Event name = ${{ github.event_name }}"
-          echo "Event payload = ${{ toJson(github.event) }}"
-          echo "Event action = ${{ github.event.action }}"
-          echo "Event ref = ${{ github.ref }}"
-          echo "Event sha = ${{ github.sha }}"
-      - name: Output variable into script
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const eventName = "${{ github.event_name }}";
-
-            console.log(`Event name: ${eventName}`);
+    uses: ./.github/workflows/shared-upsert-comment.yml
    
   # create-comment-one:
   #   name: Create comment
