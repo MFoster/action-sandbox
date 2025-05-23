@@ -19,15 +19,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const eventName = github.event_name;
-            const eventPayload = github.event;
-            const eventRef = github.ref;
-            const eventSha = github.sha;
+            const eventName = "${{ github.event_name }}";
 
             console.log(`Event name: ${eventName}`);
-            console.log(`Event payload: ${JSON.stringify(eventPayload)}`);
-            console.log(`Event ref: ${eventRef}`);
-            console.log(`Event sha: ${eventSha}`);
+   
   # create-comment-one:
   #   name: Create comment
   #   uses: ./.github/workflows/shared-upsert-comment.yml
