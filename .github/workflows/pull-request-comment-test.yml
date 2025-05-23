@@ -21,13 +21,11 @@ jobs:
           script: |
             const eventName = github.event_name;
             const eventPayload = github.event;
-            const eventAction = github.event.action;
             const eventRef = github.ref;
             const eventSha = github.sha;
 
             console.log(`Event name: ${eventName}`);
             console.log(`Event payload: ${JSON.stringify(eventPayload)}`);
-            console.log(`Event action: ${eventAction}`);
             console.log(`Event ref: ${eventRef}`);
             console.log(`Event sha: ${eventSha}`);
   # create-comment-one:
