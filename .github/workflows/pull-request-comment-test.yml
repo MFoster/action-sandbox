@@ -1,3 +1,4 @@
+name: Pull Request Comment Test
 on: 
   pull_request:
     branches:
@@ -7,6 +8,8 @@ jobs:
   create-comment-one:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Create comment
         id: create_comment
         uses: ./.github/workflows/shared-upsert-comment.yml
@@ -16,6 +19,8 @@ jobs:
   create-comment-two:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Create comment
         id: create_comment
         uses: ./.github/workflows/shared-upsert-comment.yml
