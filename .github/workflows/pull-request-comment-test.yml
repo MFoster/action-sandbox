@@ -6,25 +6,15 @@ on:
 
 jobs:
   create-comment-one:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Create comment
-        id: create_comment
-        uses: ./.github/workflows/shared-upsert-comment.yml
-        with:
-          comment-body: "Tons of text\n ### and more here on the next line"
-          comment-title: Comment One Test Please Ignore
+    name: Create comment
+    uses: ./.github/workflows/shared-upsert-comment.yml
+    with:
+      comment-body: "Tons of text\n ### and more here on the next line"
+      comment-title: Comment One Test Please Ignore
   create-comment-two:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Create comment
-        id: create_comment
-        uses: ./.github/workflows/shared-upsert-comment.yml
-        with:
-          comment-body: ${{ github.event.inputs.comment-body-two }}
-          comment-title: Comment Two Test Please Ignore
+    name: Create comment
+    uses: ./.github/workflows/shared-upsert-comment.yml
+    with:
+      comment-body: ${{ github.event.inputs.comment-body-two }}
+      comment-title: Comment Two Test Please Ignore
     
