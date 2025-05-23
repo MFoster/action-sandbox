@@ -11,45 +11,44 @@ jobs:
       comment-body: |
         ## Event Name
         The event name is `${{ github.event_name }}`.
-
-        ## Event Payload
-        The event payload is `${{ toJson(github.event) }}`.
       comment-title: Event Name Test Please Ignore
       pr-number: ${{ github.event.pull_request.number }}
-  # create-comment-one:
-  #   name: Create comment
-  #   uses: ./.github/workflows/shared-upsert-comment.yml
-  #   with:
-  #     comment-body: "Tons of text\n ### and more here on the next line"
-  #     comment-title: Comment One Test Please Ignore
-  # create-comment-two:
-  #   name: Create comment
-  #   uses: ./.github/workflows/shared-upsert-comment.yml
-  #   with:
-  #     comment-body: |
-  #       ## This is an even bigger comment
-  #       ### with even more text
-  #       ### and even more text
-  #       ### and even more text
+  create-comment-one:
+    name: Create comment
+    uses: ./.github/workflows/shared-upsert-comment.yml
+    with:
+      comment-body: "Tons of text\n ### and more here on the next line"
+      comment-title: Comment One Test Please Ignore
+      pr-number: ${{ github.event.pull_request.number }}
+  create-comment-two:
+    name: Create comment
+    uses: ./.github/workflows/shared-upsert-comment.yml
+    with:
+      pr-number: ${{ github.event.pull_request.number }}
+      comment-body: |
+        ## This is an even bigger comment
+        ### with even more text
+        ### and even more text
+        ### and even more text
 
-  #       --- 
+        --- 
 
-  #       **Checklist**
-  #       - [ ] Item 1
-  #       - [ ] Item 2
-  #       - [ ] Item 3
+        **Checklist**
+        - [ ] Item 1
+        - [ ] Item 2
+        - [ ] Item 3
 
-  #       ---
+        ---
 
-  #       **Notes**
-  #       > Add any additional notes or context here.
+        **Notes**
+        > Add any additional notes or context here.
 
-  #       ---
+        ---
 
-  #       **Links**
-  #       - [Documentation](https://example.com/docs)
-  #       - [Related Issue](#)
+        **Links**
+        - [Documentation](https://example.com/docs)
+        - [Related Issue](#)
 
-  #       ---
-  #     comment-title: Comment Two Test Please Ignore
+        ---
+      comment-title: Comment Two Test Please Ignore
     
