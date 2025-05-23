@@ -25,13 +25,20 @@ jobs:
       - name: Find PR number
         id: find_pr
         uses: actions/github-script@v7
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          INPUT_PR_NUMBER: ${{ inputs.pr-number }}
+          INPUT_COMMENT_BODY: ${{ inputs.comment-body }}
+          INPUT_COMMENT_TITLE: ${{ inputs.comment-title }}
+
         with:
           script: |
             console.log(`Event name: ${{ github.event_name}}`);
-            const event_name = '${{ github.event_name }}';
-            const pr_number = ${{ inputs.pr-number}}
-            const body = '${{ inputs.comment-body }}';
-            const title = '${{ inputs.comment-title }}';
+            const event_name = process.env.GITHUB_EVENT_NAME;
+            const pr_number = process.env.INPUT_PR_NUMBER; // From inputs
+            const body = process.env.INPUT_COMMENT_BODY; // From inputs
+            const title = process.env.INPUT_COMMENT_TITLE; // From inputs
+
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
