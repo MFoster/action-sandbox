@@ -11,6 +11,7 @@ jobs:
       artifact_path: build.tar.gz
   comment:
     uses: ./.github/workflows/shared-upsert-comment.yml
+    needs: build
     with:
       comment-body: |
         The build artifact is available for download.
