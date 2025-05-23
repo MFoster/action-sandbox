@@ -9,7 +9,7 @@ on:
       comment-body-two:
         description: 'Body of the comment to create'
         required: true
-        default: 'This is a test comment'
+        default: 'This is a test comment I need to update this'
         type: string
 jobs:
   create-comment-one:
