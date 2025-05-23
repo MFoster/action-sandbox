@@ -26,7 +26,7 @@ jobs:
             console.log(`Event name: ${{ github.event_name}}`);
             const event_name = '${{ github.event_name }}';
             if (event_name == 'pull_request') {
-              pr_number = ${{ github.context.payload.pull_request.number }} ;
+              pr_number = ${{ github.context.payload.pull_request.number }};
             } 
             if (pulls.length > 0) {
               pr_number = pulls[0].number;
