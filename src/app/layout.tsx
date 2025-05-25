@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import "@mantine/core/styles.css";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import {
+  AppShell,
+  AppShellHeader,
+  AppShellNavbar,
+  AppShellMain,
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+  Image,
+  Flex,
+  Title,
+} from "@mantine/core";
+import { SideNavController } from "@/component/SideNavController";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,9 +27,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <MantineProvider>
+          <AppShell
+            header={{ height: 60 }}
+            navbar={{
+              width: 300,
+              breakpoint: "sm",
+            }}
+            padding="md"
+          >
+            <AppShellHeader>
+              <Flex>
+                <Image
+                  src="/logo2.png"
+                  alt="Logo"
+                  h={50}
+                  w="auto"
+                  style={{ marginRight: "1rem" }}
+                />
+
+                <Title order={1}>Workflow Visualizer</Title>
+              </Flex>
+            </AppShellHeader>
+
+            <AppShellNavbar p="md">
+              <SideNavController />
+            </AppShellNavbar>
+
+            <AppShellMain>{children}</AppShellMain>
+          </AppShell>
+        </MantineProvider>
       </body>
     </html>
   );
