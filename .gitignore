@@ -19,7 +19,7 @@
 
 # production
 /build
-
+/public/workflows
 # misc
 .DS_Store
 *.pem

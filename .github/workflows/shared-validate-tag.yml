@@ -3,33 +3,34 @@ on:
   workflow_call:
     inputs:
       tag:
-        description: 'Release tag to inspect'
+        description: "Release tag to inspect"
         required: true
         type: string
     outputs:
       tag_exists:
-        description: 'Whether the tag exists'
+        description: "Whether the tag exists"
         required: true
         type: boolean
         value: ${{ jobs.validate_tag.outputs.tag_exists }}
       tag_name:
-        description: 'The name of the tag'
+        description: "The name of the tag"
         required: true
         type: string
         value: ${{ jobs.validate_tag.outputs.tag_name }}
       tag_url:
-        description: 'The URL of the tag'
+        description: "The URL of the tag"
         required: true
         type: string
         value: ${{ jobs.validate_tag.outputs.tag_url }}
       tag_ref:
-        description: 'The ref of the tag'
+        description: "The ref of the tag"
         required: true
         type: string
         value: ${{ jobs.validate_tag.outputs.tag_ref }}
 
 jobs:
   validate_tag:
+    name: Validate tag exists
     runs-on: ubuntu-latest
     outputs:
       tag_exists: ${{ steps.validate_tag.outputs.tag_exists }}
