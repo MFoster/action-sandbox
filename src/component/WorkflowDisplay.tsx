@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { ReactFlow, Background } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
+import { Box, LoadingOverlay } from "@mantine/core";
 
 export const WorkflowDisplayController = ({
   filename,
@@ -35,22 +36,22 @@ export const WorkflowDisplay = async ({
   const edges = transformJobsToEdges(data.jobs);
   console.log("Nodes: %o and edges %o", nodes, edges);
   return (
-    <div
-      key="whocares"
-      style={{ position: "absolute", top: 5, left: 5, right: 5, bottom: 5 }}
-    >
-      <ReactFlow nodes={nodes} edges={edges} fitView>
+    <Box key="whocares" style={{ position: "relative", flexGrow: 1 }}>
+      <ReactFlow nodes={nodes} edges={edges} minZoom={0.3} fitView>
         <Background />
       </ReactFlow>
-    </div>
+    </Box>
   );
 };
 
 export const WorkflowDisplayLoading = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
-      <p className="mt-4 text-lg">Loading...</p>
-    </div>
+    <Box style={{ position: "relative", flexGrow: 1 }}>
+      <LoadingOverlay
+        visible={true}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+      />
+    </Box>
   );
 };
