@@ -4,11 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag to rollback to'
+        description: "Release tag to rollback to"
         required: true
 
 jobs:
   validate_tag:
+    name: Validate Tag Exists
     uses: ./.github/workflows/shared-validate-tag.yml
     with:
       tag: ${{ github.event.inputs.tag }}
