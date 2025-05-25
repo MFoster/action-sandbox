@@ -13,7 +13,7 @@
     "@mantine/hooks": "^8.0.1",
     "@xyflow/react": "^12.6.4",
     "js-yaml": "^4.1.0",
-    "next": "15.3.2",
+    "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -28,11 +28,5 @@
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "typescript": "^5"
-  },
-  "eslint": {
-    "extends": "next/core-web-vitals",
-    "rules": {
-      "@typescript-eslint/no-explicit-any": "off"
-    }
   }
 }

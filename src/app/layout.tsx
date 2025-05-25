@@ -55,7 +55,7 @@ export default function RootLayout({
               </Flex>
             </AppShellHeader>
 
-            <AppShellNavbar p="md">
+            <AppShellNavbar p="md" display={"flex"}>
               <SideNavController />
             </AppShellNavbar>
 
