@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "cp .github/workflows public/ && next build",
+    "build": "cp -r .github/workflows public/ && next build",
     "start": "next start",
     "lint": "next lint"
   },
